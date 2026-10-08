@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Procura-se — Entre Laços 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{height:100%;}
+body{
+  font-family:'Special Elite',serif;
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse at center, #2A1200 0%, #0D0500 100%);
+  display:flex;align-items:center;justify-content:center;
+  padding:2rem 1rem 3rem;position:relative;overflow-x:hidden;
+}
+/* Textura de madeira */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    repeating-linear-gradient(92deg,transparent 0,transparent 3px,rgba(0,0,0,0.06) 3px,rgba(0,0,0,0.06) 4px),
+    repeating-linear-gradient(180deg,transparent 0,transparent 12px,rgba(60,30,0,0.04) 12px,rgba(60,30,0,0.04) 13px);
+  pointer-events:none;z-index:0;
+}
+/* Vinheta */
+body::after{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 30%,rgba(0,0,0,0.65) 100%);
+  pointer-events:none;z-index:0;
+}
+
+/* ── CARTAZ ── */
+.poster{
+  position:relative;z-index:1;
+  max-width:460px;width:100%;
+  /* Papel envelhecido */
+  background:
+    linear-gradient(160deg,#F2D98A 0%,#E8C96A 30%,#D4A832 70%,#C49010 100%);
+  border-radius:2px;
+  padding:0 0 2rem;
+  box-shadow:
+    0 0 0 2px #8B6000,
+    0 0 0 8px #5C3800,
+    0 0 0 10px #3D2000,
+    inset 0 0 60px rgba(92,56,0,0.25),
+    0 30px 100px rgba(0,0,0,0.8);
+  overflow:hidden;
+}
+/* Borda interna decorativa */
+.poster::before{
+  content:'';position:absolute;
+  inset:10px;border:1px solid rgba(92,48,0,0.25);
+  pointer-events:none;z-index:10;
+}
+/* Marcas de envelhecimento */
+.poster::after{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 30% 20% at 15% 25%,rgba(92,48,0,0.08),transparent),
+    radial-gradient(ellipse 20% 15% at 80% 70%,rgba(92,48,0,0.06),transparent),
+    radial-gradient(ellipse 25% 10% at 60% 15%,rgba(92,48,0,0.05),transparent);
+  pointer-events:none;z-index:10;
+}
+
+/* ── CABEÇALHO WANTED ── */
+.poster-top{
+  background:linear-gradient(180deg,#5C1A00 0%,#7A2500 100%);
+  padding:1rem 1.5rem 0.75rem;
+  text-align:center;
+  border-bottom:4px solid #3D1000;
+  position:relative;z-index:1;
+}
+.poster-subtitle{
+  font-family:'Special Elite',serif;
+  font-size:10px;letter-spacing:0.35em;
+  color:rgba(245,215,140,0.7);margin-bottom:4px;
+}
+.poster-wanted-text{
+  font-family:'Rye',serif;
+  font-size:56px;color:#F5D78C;
+  line-height:1;letter-spacing:0.08em;
+  text-shadow:
+    2px 2px 0 #3D1000,
+    4px 4px 8px rgba(0,0,0,0.5);
+}
+.poster-dead-alive{
+  font-family:'Special Elite',serif;
+  font-size:11px;letter-spacing:0.4em;
+  color:rgba(245,215,140,0.65);
+  margin-top:4px;text-transform:uppercase;
+}
+
+/* ── FOTO ── */
+.photo-area{
+  padding:1.25rem 1.5rem 0;
+  display:flex;justify-content:center;
+  position:relative;z-index:1;
+}
+.photo-frame{
+  width:130px;height:130px;
+  border:3px solid #5C3800;
+  background:linear-gradient(145deg,#2C1500,#1A0A00);
+  position:relative;overflow:hidden;cursor:pointer;
+  box-shadow:
+    inset 0 0 20px rgba(0,0,0,0.5),
+    3px 3px 10px rgba(0,0,0,0.4);
+}
+.photo-frame input[type=file]{
+  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:3;
+}
+.photo-frame img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:2;
+}
+/* Silhueta de pessoa */
+.photo-silhouette{
+  position:absolute;inset:0;display:flex;align-items:flex-end;
+  justify-content:center;padding-bottom:0;z-index:1;
+}
+.photo-silhouette svg{width:80px;height:100px;opacity:0.25;}
+.photo-tip{
+  font-family:'Special Elite',serif;
+  font-size:9px;letter-spacing:0.12em;color:#5C3800;
+  text-align:center;margin-top:6px;text-transform:uppercase;
+  opacity:0.7;
+}
+.rm-photo-btn{
+  position:absolute;top:4px;right:4px;
+  background:#5C0000;color:#F5D78C;
+  border:1px solid #8B0000;
+  width:20px;height:20px;font-size:11px;
+  cursor:pointer;display:none;
+  align-items:center;justify-content:center;z-index:4;
+}
+.photo-frame:has(img) .rm-photo-btn{display:flex;}
+.photo-frame:has(img) .photo-silhouette{display:none;}
+
+/* ── CORPO ── */
+.poster-body{padding:1rem 1.5rem 0;position:relative;z-index:1;}
+
+/* Linhas de papel */
+.paper-line{
+  border:none;border-bottom:1px solid rgba(92,56,0,0.2);
+  margin:0.9rem 0;
+}
+
+.field-label{
+  font-family:'Rye',serif;
+  font-size:10px;letter-spacing:0.2em;
+  color:#5C3800;text-transform:uppercase;
+  margin-bottom:4px;display:block;
+}
+.field-input{
+  width:100%;padding:9px 12px;
+  background:rgba(92,48,0,0.06);
+  border:1px solid rgba(92,48,0,0.3);
+  border-radius:1px;
+  font-family:'Special Elite',serif;font-size:14px;
+  color:#2C1000;outline:none;
+  transition:border-color 0.2s,background 0.2s;
+}
+.field-input::placeholder{color:rgba(44,16,0,0.35);}
+.field-input:focus{border-color:#8B5E00;background:rgba(92,48,0,0.1);}
+select.field-input{
+  appearance:none;-webkit-appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235C3800' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;
+  background-color:rgba(92,48,0,0.06);
+  padding-right:32px;
+}
+select.field-input option{background:#F2D98A;color:#2C1000;}
+textarea.field-input{min-height:80px;resize:vertical;line-height:1.6;}
+.char-count{font-size:9px;color:rgba(44,16,0,0.35);text-align:right;margin-top:2px;letter-spacing:0.05em;}
+
+/* Lacre / selo decorativo */
+.reward-banner{
+  margin:1rem 0;
+  background:linear-gradient(135deg,#5C1A00,#7A2500);
+  padding:8px 16px;text-align:center;
+  border-top:1px solid rgba(200,150,62,0.3);
+  border-bottom:1px solid rgba(200,150,62,0.3);
+}
+.reward-text{
+  font-family:'Rye',serif;font-size:11px;
+  color:#F5D78C;letter-spacing:0.2em;
+}
+
+/* ── BOTÃO ── */
+.btn-send{
+  width:100%;padding:13px;
+  background:linear-gradient(135deg,#5C1A00,#8B3000,#5C1A00);
+  color:#F5D78C;border:2px solid #C8963E;
+  font-family:'Rye',serif;font-size:15px;
+  letter-spacing:0.15em;cursor:pointer;
+  transition:opacity 0.2s,transform 0.1s;
+  box-shadow:0 2px 12px rgba(0,0,0,0.4);
+}
+.btn-send:hover{opacity:0.9;transform:translateY(-1px);}
+
+/* ── RODAPÉ ── */
+.poster-footer{
+  padding:0.75rem 1.5rem 0;
+  display:flex;justify-content:space-between;
+  border-top:1px solid rgba(92,48,0,0.2);
+  position:relative;z-index:1;
+}
+.footer-txt{font-size:9px;color:#5C3800;opacity:0.6;letter-spacing:0.12em;text-transform:uppercase;}
+
+/* Barra progresso */
+.form-field{margin-bottom:1rem;}
+
+/* ── SUCESSO ── */
+.success-box{display:none;padding:3rem 2rem;text-align:center;position:relative;z-index:1;}
+.success-stamp{
+  width:90px;height:90px;border-radius:50%;
+  border:4px solid #5C1A00;margin:0 auto 1.25rem;
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(-15deg);
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+}
+.success-stamp-inner{
+  font-family:'Rye',serif;font-size:10px;color:#5C1A00;
+  letter-spacing:0.15em;text-align:center;line-height:1.4;
+}
+.success-title{font-family:'Rye',serif;color:#5C1A00;font-size:20px;margin-bottom:8px;letter-spacing:0.1em;}
+.success-sub{font-family:'Special Elite',serif;color:#3D1F00;font-size:13px;line-height:1.7;opacity:0.7;}
+.btn-novo{
+  margin-top:1.25rem;padding:10px 24px;
+  background:transparent;border:1px solid #5C3800;
+  color:#5C3800;cursor:pointer;
+  font-family:'Rye',serif;font-size:10px;letter-spacing:0.15em;
+}
+
+
+/* ── PAINEL DE PERSONALIZAÇÃO ── */
+#customizer{
+  position:fixed;bottom:1rem;right:1rem;z-index:9999;
+  font-family:'Lato',sans-serif;
+}
+#cust-toggle{
+  background:rgba(0,0,0,0.78);color:#E9C46A;
+  border:1px solid #8B6000;border-radius:999px;
+  padding:8px 16px;font-size:12px;font-weight:700;
+  cursor:pointer;letter-spacing:0.08em;
+  box-shadow:0 4px 16px rgba(0,0,0,0.4);
+  display:flex;align-items:center;gap:6px;
+}
+#cust-toggle:hover{background:rgba(0,0,0,0.95);}
+#cust-panel{
+  display:none;
+  background:rgba(12,4,0,0.97);
+  border:1px solid #8B6000;border-radius:12px;
+  padding:1.25rem;width:300px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.7);
+  margin-bottom:8px;max-height:90vh;overflow-y:auto;
+}
+#cust-panel.open{display:block;}
+/* Scrollbar discreta */
+#cust-panel::-webkit-scrollbar{width:4px;}
+#cust-panel::-webkit-scrollbar-track{background:transparent;}
+#cust-panel::-webkit-scrollbar-thumb{background:#8B6000;border-radius:2px;}
+
+.cust-title{
+  font-family:'Cinzel',serif;font-size:11px;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:#C8963E;margin-bottom:1rem;
+  border-bottom:1px solid rgba(139,96,0,0.3);padding-bottom:8px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.cust-title span{font-size:10px;color:rgba(200,150,62,0.4);letter-spacing:0.1em;}
+
+.cust-section{
+  font-size:10px;font-weight:700;letter-spacing:0.15em;
+  text-transform:uppercase;color:rgba(200,150,62,0.5);
+  margin:0.9rem 0 0.5rem;display:flex;align-items:center;gap:8px;
+}
+.cust-section::after{content:'';flex:1;height:1px;background:rgba(139,96,0,0.2);}
+
+.cust-presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0.5rem;}
+.cust-preset{
+  width:32px;height:32px;border-radius:6px;
+  border:2px solid transparent;cursor:pointer;
+  transition:border-color 0.15s,transform 0.15s;
+  position:relative;overflow:hidden;
+  flex-shrink:0;
+}
+.cust-preset:hover{border-color:#E9C46A;transform:scale(1.08);}
+.cust-preset.active{border-color:#E9C46A;box-shadow:0 0 0 1px #E9C46A;}
+.cust-preset .preset-del{
+  position:absolute;inset:0;background:rgba(139,0,0,0.85);
+  display:none;align-items:center;justify-content:center;
+  font-size:13px;color:#fff;cursor:pointer;
+}
+.cust-preset:hover .preset-del.show{display:flex;}
+.cust-preset[title]::after{
+  content:attr(title);
+  position:absolute;bottom:calc(100% + 4px);left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,0.9);color:#E9C46A;
+  font-size:9px;white-space:nowrap;padding:3px 7px;
+  border-radius:4px;pointer-events:none;opacity:0;transition:opacity 0.15s;
+  font-family:'Lato',sans-serif;letter-spacing:0.05em;
+}
+.cust-preset:hover[title]::after{opacity:1;}
+
+/* Salvar tema */
+.save-theme-row{display:flex;gap:6px;margin-top:0.5rem;}
+.save-theme-input{
+  flex:1;padding:7px 10px;
+  background:rgba(245,224,176,0.05);
+  border:1px solid rgba(139,96,0,0.35);border-radius:4px;
+  font-size:12px;font-family:'Lato',sans-serif;
+  color:#F5E0B0;outline:none;
+}
+.save-theme-input::placeholder{color:rgba(245,224,176,0.25);}
+.save-theme-input:focus{border-color:#C8963E;}
+.btn-save-theme{
+  padding:7px 12px;background:rgba(200,150,62,0.15);
+  border:1px solid #8B6000;border-radius:4px;
+  color:#C8963E;font-size:11px;font-weight:700;
+  cursor:pointer;white-space:nowrap;letter-spacing:0.06em;
+  transition:background 0.15s;
+}
+.btn-save-theme:hover{background:rgba(200,150,62,0.25);}
+
+.cust-group{margin-bottom:0.9rem;}
+.cust-label{
+  display:block;font-size:10px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(245,224,176,0.55);margin-bottom:5px;
+}
+.cust-row{display:flex;gap:8px;align-items:center;}
+.cust-color{
+  width:36px;height:36px;border:1px solid #8B6000;
+  border-radius:4px;cursor:pointer;padding:2px;background:transparent;
+}
+.cust-color::-webkit-color-swatch-wrapper{padding:0;}
+.cust-color::-webkit-color-swatch{border:none;border-radius:2px;}
+.cust-text{flex:1;}
+.cust-input{
+  width:100%;padding:7px 10px;
+  background:rgba(245,224,176,0.06);
+  border:1px solid rgba(139,96,0,0.35);border-radius:4px;
+  font-size:12px;font-family:'Lato',sans-serif;
+  color:#F5E0B0;outline:none;
+}
+.cust-input:focus{border-color:#C8963E;}
+.cust-range{width:100%;accent-color:#C8963E;cursor:pointer;}
+.cust-select{
+  width:100%;padding:7px 10px;
+  background:rgba(245,224,176,0.05);
+  border:1px solid rgba(139,96,0,0.35);border-radius:4px;
+  font-size:12px;font-family:'Lato',sans-serif;
+  color:#F5E0B0;outline:none;cursor:pointer;appearance:none;
+}
+.cust-select option{background:#0D0500;color:#F5E0B0;}
+
+.cust-upload-label{
+  display:block;width:100%;padding:8px;
+  background:rgba(245,224,176,0.04);
+  border:1px dashed rgba(139,96,0,0.4);border-radius:4px;
+  text-align:center;font-size:11px;color:rgba(245,224,176,0.45);
+  cursor:pointer;letter-spacing:0.06em;transition:all 0.15s;
+}
+.cust-upload-label:hover{background:rgba(245,224,176,0.08);border-color:#C8963E;color:#F5E0B0;}
+.cust-upload-label input{display:none;}
+.bg-preview{
+  width:100%;height:44px;border-radius:4px;
+  border:1px solid rgba(139,96,0,0.25);margin-top:5px;
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:rgba(245,224,176,0.3);letter-spacing:0.06em;position:relative;
+}
+.bg-preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.55;}
+
+.cust-sep{height:1px;background:rgba(139,96,0,0.18);margin:0.75rem 0;}
+
+.btn-cust-apply{
+  width:100%;padding:9px;
+  background:linear-gradient(135deg,#8B6000,#C8963E);
+  color:#1A0800;border:none;border-radius:4px;
+  font-size:11px;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;cursor:pointer;transition:opacity 0.15s;
+}
+.btn-cust-apply:hover{opacity:0.9;}
+.btn-cust-reset{
+  width:100%;padding:7px;margin-top:5px;
+  background:transparent;border:1px solid rgba(139,96,0,0.25);
+  color:rgba(245,224,176,0.35);border-radius:4px;
+  font-size:10px;letter-spacing:0.1em;cursor:pointer;
+}
+.no-themes-msg{
+  font-size:11px;color:rgba(245,224,176,0.3);
+  text-align:center;padding:8px;letter-spacing:0.05em;
+  font-style:italic;
+}
+
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- TOPO WANTED -->
+  <div class="poster-top">
+    <div class="poster-subtitle">Entre Laços · Confra 2026</div>
+    <div class="poster-wanted-text">PROCURA-SE</div>
+    <div class="poster-dead-alive">Duas histórias, um só propósito</div>
+  </div>
+
+  <!-- FOTO -->
+  <div class="photo-area">
+    <div>
+      <div class="photo-frame" id="photoFrame">
+        <input type="file" accept="image/*" onchange="carregarFoto(this)">
+        <div class="photo-silhouette">
+          <svg viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Chapéu -->
+            <ellipse cx="40" cy="28" rx="24" ry="4" fill="#C8963E"/>
+            <path d="M20 28 Q22 18 40 16 Q58 18 60 28 Z" fill="#C8963E"/>
+            <rect x="16" y="26" width="48" height="5" rx="2" fill="#8B6000"/>
+            <!-- Cabeça -->
+            <ellipse cx="40" cy="42" rx="14" ry="16" fill="#C8963E"/>
+            <!-- Corpo -->
+            <path d="M22 68 Q26 58 40 56 Q54 58 58 68 L62 90 H18 Z" fill="#8B6000"/>
+          </svg>
+        </div>
+        <button class="rm-photo-btn" onclick="removerFoto(event)">✕</button>
+      </div>
+      <div class="photo-tip">Toque para adicionar foto (opcional)</div>
+    </div>
+  </div>
+
+  <!-- CORPO -->
+  <div id="form-area">
+    <div class="poster-body">
+      <hr class="paper-line">
+      <div class="form-field">
+        <label class="field-label">Nome do procurado</label>
+        <input type="text" class="field-input" id="nome" placeholder="Seu nome completo" maxlength="50"/>
+      </div>
+      <div class="form-field">
+        <label class="field-label">Setor / Loja</label>
+        <select class="field-input" id="setor">
+        <option value="">Selecione...</option>
+        <option>CP Ófris – Ativação</option>
+        <option>CP Ófris – Captação</option>
+        <option>CP Ófris – Receptivo</option>
+        <option>CP Ófris – Estoque e Logística</option>
+        <option>CP Ófris – Atendimento</option>
+        <option>CP Ófris – Canal Loja</option>
+        <option>Grupo Ófris – Administrativo</option>
+        <option>Grupo Ófris – Presidência</option>
+        <option>Grupo Ófris – Diretoria</option>
+        <option>CP Flor do Campo – Canal Loja</option>
+        <option>CP Flor do Campo – Ativação</option>
+        <option>CP Flor do Campo – Captação</option>
+        <option>CP Flor do Campo – Estoque e Logística</option>
+        <option>CP Flor do Campo – Atendimento</option>
+      </select>
+      </div>
+      <div class="form-field">
+        <label class="field-label">Seria procurado por quê?</label>
+        <textarea class="field-input" id="motivo" placeholder="Ex: Pelo sorriso que ilumina qualquer ambiente..." maxlength="200" oninput="updateChar()"></textarea>
+        <div class="char-count"><span id="charNum">0</span> / 200</div>
+      </div>
+
+      <div class="reward-banner">
+        <div class="reward-text">Recompensa: muito carinho</div>
+      </div>
+
+      <button class="btn-send" onclick="enviar()">Publicar cartaz</button>
+    </div>
+
+    <div class="poster-footer">
+      <span class="footer-txt">Grupo Ófris</span>
+      <span class="footer-txt">19 · 10 · 2026</span>
+      <span class="footer-txt">Entre Laços</span>
+    </div>
+  </div>
+
+  <!-- SUCESSO -->
+  <div class="success-box" id="success-area">
+    <div class="success-stamp">
+      <div class="success-stamp-inner">CARTAZ<br>PUBLICADO</div>
+    </div>
+    <div class="success-title">Você está no telão!</div>
+    <p class="success-sub">Seu cartaz "Procura-se" já<br>aparecerá no telão. Prepare-se!</p>
+    <button class="btn-novo" onclick="novo()">Criar outro cartaz</button>
+  </div>
+
+</div>
+
+<script>
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyJ5FzXFS86X9fWXtdd_90mW_jW6tL8ji1d0oDtxMorsejHESvV4zS-HUpwmK-HJnQc/exec';
+let fotoBase64 = null;
+
+function updateChar(){
+  document.getElementById('charNum').textContent = document.getElementById('motivo').value.length;
+}
+function carregarFoto(input){
+  const file = input.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    fotoBase64 = e.target.result;
+    const frame = document.getElementById('photoFrame');
+    let img = frame.querySelector('img');
+    if(!img){ img = document.createElement('img'); frame.appendChild(img); }
+    img.src = fotoBase64;
+  };
+  reader.readAsDataURL(file);
+}
+function removerFoto(e){
+  e.stopPropagation(); e.preventDefault();
+  fotoBase64 = null;
+  const frame = document.getElementById('photoFrame');
+  const img = frame.querySelector('img'); if(img) img.remove();
+  const inp = frame.querySelector('input'); if(inp) inp.value='';
+}
+function enviar(){
+  const nome   = document.getElementById('nome').value.trim();
+  const setor  = document.getElementById('setor').value;
+  const motivo = document.getElementById('motivo').value.trim();
+  if(!nome||!setor||!motivo){ alert('Preencha todos os campos!'); return; }
+  const payload={tipo:'procurase',timestamp:new Date().toLocaleString('pt-BR'),nome,setor,motivo,foto:fotoBase64||''};
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(()=>mostrarSucesso()).catch(()=>mostrarSucesso());
+}
+function mostrarSucesso(){
+  document.getElementById('form-area').style.display='none';
+  document.getElementById('success-area').style.display='block';
+}
+function novo(){
+  document.getElementById('nome').value='';
+  document.getElementById('setor').value='';
+  document.getElementById('motivo').value='';
+  document.getElementById('charNum').textContent='0';
+  fotoBase64=null;
+  const frame=document.getElementById('photoFrame');
+  const img=frame.querySelector('img');if(img)img.remove();
+  const inp=frame.querySelector('input');if(inp)inp.value='';
+  document.getElementById('form-area').style.display='block';
+  document.getElementById('success-area').style.display='none';
+}
+</script>
+
+
+<!-- PAINEL DE PERSONALIZAÇÃO -->
+<div id="customizer">
+  <div id="cust-panel">
+    <div class="cust-title">
+      Personalizar visual
+      <span id="cust-page-id"></span>
+    </div>
+
+    <!-- TEMAS PADRÃO -->
+    <div class="cust-section">Temas padrão</div>
+    <div class="cust-presets" id="presets-default">
+      <div class="cust-preset active" title="Faroeste" style="background:linear-gradient(135deg,#3D1F00,#8B3000)" onclick="aplicarPreset('faroeste',this)"></div>
+      <div class="cust-preset" title="Noite" style="background:linear-gradient(135deg,#0A0A2E,#1A1A5C)" onclick="aplicarPreset('noite',this)"></div>
+      <div class="cust-preset" title="Verde Ófris" style="background:linear-gradient(135deg,#0A2010,#1B4332)" onclick="aplicarPreset('verde',this)"></div>
+      <div class="cust-preset" title="Dourado" style="background:linear-gradient(135deg,#2C200A,#5C4010)" onclick="aplicarPreset('dourado',this)"></div>
+      <div class="cust-preset" title="Vinho" style="background:linear-gradient(135deg,#2A0010,#5C0030)" onclick="aplicarPreset('vinho',this)"></div>
+      <div class="cust-preset" title="Neutro" style="background:linear-gradient(135deg,#0D0D0D,#1A1A1A)" onclick="aplicarPreset('escuro',this)"></div>
+    </div>
+
+    <!-- MEUS TEMAS -->
+    <div class="cust-section">Meus temas</div>
+    <div class="cust-presets" id="presets-custom">
+      <div class="no-themes-msg" id="no-themes-msg">Nenhum tema salvo ainda</div>
+    </div>
+
+    <!-- Salvar tema atual -->
+    <div class="save-theme-row">
+      <input type="text" class="save-theme-input" id="themeNameInput" placeholder="Nome do meu tema..." maxlength="20">
+      <button class="btn-save-theme" onclick="salvarTema()">Salvar</button>
+    </div>
+
+    <div class="cust-sep"></div>
+
+    <!-- CORES -->
+    <div class="cust-section">Cores</div>
+    <div class="cust-group">
+      <span class="cust-label">Cor principal</span>
+      <div class="cust-row">
+        <input type="color" class="cust-color" id="clrPrimary" value="#3D1F00" oninput="syncFromPicker('clrPrimary','txtPrimary')">
+        <div class="cust-text">
+          <input type="text" class="cust-input" id="txtPrimary" value="#3D1F00" placeholder="#000000" oninput="syncFromText('clrPrimary','txtPrimary')">
+        </div>
+      </div>
+    </div>
+    <div class="cust-group">
+      <span class="cust-label">Cor de destaque</span>
+      <div class="cust-row">
+        <input type="color" class="cust-color" id="clrAccent" value="#C8963E" oninput="syncFromPicker('clrAccent','txtAccent')">
+        <div class="cust-text">
+          <input type="text" class="cust-input" id="txtAccent" value="#C8963E" placeholder="#C8963E" oninput="syncFromText('clrAccent','txtAccent')">
+        </div>
+      </div>
+    </div>
+    <div class="cust-group">
+      <span class="cust-label">Cor do texto <span id="opacLabel2" style="color:rgba(245,224,176,0.4)"></span></span>
+      <div class="cust-row">
+        <input type="color" class="cust-color" id="clrText" value="#F5E0B0" oninput="syncFromPicker('clrText','txtText')">
+        <div class="cust-text">
+          <input type="text" class="cust-input" id="txtText" value="#F5E0B0" placeholder="#F5E0B0" oninput="syncFromText('clrText','txtText')">
+        </div>
+      </div>
+    </div>
+
+    <!-- FUNDO -->
+    <div class="cust-section">Fundo</div>
+    <div class="cust-group">
+      <span class="cust-label">Opacidade do cenário <span id="opacLabel">85%</span></span>
+      <input type="range" class="cust-range" id="rngOpacity" min="10" max="100" value="85"
+        oninput="document.getElementById('opacLabel').textContent=this.value+'%'">
+    </div>
+    <div class="cust-group">
+      <span class="cust-label">Imagem de fundo personalizada</span>
+      <label class="cust-upload-label">
+        <input type="file" accept="image/*" onchange="carregarBg(this)">
+        Clique para carregar imagem
+      </label>
+      <div class="bg-preview" id="bgPreview">sem imagem</div>
+      <button class="btn-cust-reset" style="margin-top:4px;" onclick="removerBg()">Remover imagem de fundo</button>
+    </div>
+
+    <div class="cust-sep"></div>
+    <button class="btn-cust-apply" onclick="aplicarPersonalizacao()">Aplicar</button>
+    <button class="btn-cust-reset" onclick="resetPersonalizacao()">Restaurar padrão</button>
+  </div>
+
+  <button id="cust-toggle" onclick="togglePanel()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+    </svg>
+    Personalizar
+  </button>
+</div>
+
+<script>
+// ─── STORAGE KEY por página ───────────────────────
+const PAGE_KEY = document.title.replace(/[^a-zA-Z]/g,'').toLowerCase().slice(0,20);
+document.getElementById('cust-page-id').textContent = PAGE_KEY;
+const STORAGE_KEY = 'ofris_temas_' + PAGE_KEY;
+
+// ─── TEMAS PADRÃO ─────────────────────────────────
+const PRESETS_DEFAULT = {
+  faroeste:{primary:'#3D1F00',accent:'#C8963E',text:'#F5E0B0',bg:'linear-gradient(180deg,#0D0300 0%,#1A0800 15%,#3D1500 35%,#6B2D00 55%,#8B3E00 65%,#4A1A00 80%,#1A0500 100%)',img:null},
+  noite:   {primary:'#0A0A2E',accent:'#7B9FFF',text:'#E0E8FF',bg:'linear-gradient(180deg,#020210 0%,#0A0A2E 40%,#1A1A5C 70%,#0A0A2E 100%)',img:null},
+  verde:   {primary:'#0A2010',accent:'#40916C',text:'#D0F0E0',bg:'linear-gradient(180deg,#020A05 0%,#0A2010 30%,#1B4332 60%,#0A2010 100%)',img:null},
+  dourado: {primary:'#2C200A',accent:'#E9C46A',text:'#FFF5D0',bg:'linear-gradient(180deg,#0D0A00 0%,#2C200A 40%,#5C4010 65%,#2C200A 100%)',img:null},
+  vinho:   {primary:'#2A0010',accent:'#D4537E',text:'#FFD0E0',bg:'linear-gradient(180deg,#0D0005 0%,#2A0010 40%,#5C0030 65%,#2A0010 100%)',img:null},
+  escuro:  {primary:'#0D0D0D',accent:'#CCCCCC',text:'#FFFFFF',bg:'linear-gradient(180deg,#000000 0%,#0D0D0D 40%,#1A1A1A 65%,#0D0D0D 100%)',img:null},
+};
+
+let customBg = null;
+let custState = {
+  primary:'#3D1F00',accent:'#C8963E',text:'#F5E0B0',
+  bg:PRESETS_DEFAULT.faroeste.bg,img:null,opacity:85
+};
+
+// ─── CARREGAR TEMAS SALVOS ────────────────────────
+function carregarTemasSalvos(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+    const container = document.getElementById('presets-custom');
+    const noMsg = document.getElementById('no-themes-msg');
+    const keys = Object.keys(saved);
+    if(keys.length===0){noMsg.style.display='block';return;}
+    noMsg.style.display='none';
+    // Limpar exceto o no-themes-msg
+    Array.from(container.children).forEach(c=>{if(c.id!=='no-themes-msg')c.remove();});
+    keys.forEach(name=>{
+      const t = saved[name];
+      const el = document.createElement('div');
+      el.className='cust-preset';
+      el.title=name;
+      el.style.background=`linear-gradient(135deg,${t.primary},${t.accent})`;
+      el.innerHTML=`<div class="preset-del show" onclick="deletarTema(event,'${name}')">✕</div>`;
+      el.addEventListener('click', function(e){if(e.target.classList.contains('preset-del'))return;aplicarTemaCustom(t,this);});
+      container.appendChild(el);
+    });
+  }catch(e){console.log(e);}
+}
+
+function salvarTema(){
+  const nome = document.getElementById('themeNameInput').value.trim();
+  if(!nome){alert('Digite um nome para o tema!');return;}
+  const primary = document.getElementById('clrPrimary').value;
+  const accent  = document.getElementById('clrAccent').value;
+  const text    = document.getElementById('clrText').value;
+  const opacity = parseInt(document.getElementById('rngOpacity').value);
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+    saved[nome] = {primary,accent,text,opacity,bg:custState.bg,img:customBg||null};
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+    document.getElementById('themeNameInput').value='';
+    carregarTemasSalvos();
+    // Feedback visual
+    const btn = document.querySelector('.btn-save-theme');
+    const orig = btn.textContent;
+    btn.textContent='Salvo!';btn.style.color='#40916C';
+    setTimeout(()=>{btn.textContent=orig;btn.style.color='';},1500);
+  }catch(e){alert('Erro ao salvar tema.');}
+}
+
+function deletarTema(e, nome){
+  e.stopPropagation();
+  if(!confirm('Excluir o tema "'+nome+'"?'))return;
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+    delete saved[nome];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+    carregarTemasSalvos();
+  }catch(e){console.log(e);}
+}
+
+function aplicarTemaCustom(t, el){
+  document.querySelectorAll('.cust-preset').forEach(e=>e.classList.remove('active'));
+  if(el)el.classList.add('active');
+  document.getElementById('clrPrimary').value = t.primary;
+  document.getElementById('txtPrimary').value = t.primary;
+  document.getElementById('clrAccent').value  = t.accent;
+  document.getElementById('txtAccent').value  = t.accent;
+  if(t.text){document.getElementById('clrText').value=t.text;document.getElementById('txtText').value=t.text;}
+  if(t.opacity){document.getElementById('rngOpacity').value=t.opacity;document.getElementById('opacLabel').textContent=t.opacity+'%';}
+  customBg = t.img || null;
+  if(customBg){
+    document.getElementById('bgPreview').innerHTML=`<img src="${customBg}" alt="bg">`;
+  } else {
+    document.getElementById('bgPreview').innerHTML='sem imagem';
+  }
+  custState.bg = t.bg || PRESETS_DEFAULT.faroeste.bg;
+  aplicarPersonalizacao();
+}
+
+// ─── TEMAS PADRÃO ─────────────────────────────────
+function aplicarPreset(nome, el){
+  const p = PRESETS_DEFAULT[nome];
+  document.querySelectorAll('.cust-preset').forEach(e=>e.classList.remove('active'));
+  if(el)el.classList.add('active');
+  document.getElementById('clrPrimary').value = p.primary;
+  document.getElementById('txtPrimary').value = p.primary;
+  document.getElementById('clrAccent').value  = p.accent;
+  document.getElementById('txtAccent').value  = p.accent;
+  document.getElementById('clrText').value    = p.text;
+  document.getElementById('txtText').value    = p.text;
+  customBg = null;
+  document.getElementById('bgPreview').innerHTML = 'sem imagem';
+  custState.bg = p.bg;
+  aplicarPersonalizacao();
+}
+
+// ─── SYNC CORES ───────────────────────────────────
+function syncFromPicker(clrId, txtId){
+  document.getElementById(txtId).value = document.getElementById(clrId).value;
+}
+function syncFromText(clrId, txtId){
+  const v = document.getElementById(txtId).value;
+  if(/^#[0-9A-Fa-f]{6}$/.test(v)) document.getElementById(clrId).value = v;
+}
+
+// ─── FUNDO ────────────────────────────────────────
+function carregarBg(input){
+  const file = input.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    customBg = e.target.result;
+    document.getElementById('bgPreview').innerHTML=`<img src="${customBg}" alt="bg">`;
+  };
+  reader.readAsDataURL(file);
+}
+function removerBg(){
+  customBg=null;
+  document.getElementById('bgPreview').innerHTML='sem imagem';
+  const inp=document.querySelector('#cust-panel input[type=file]');
+  if(inp)inp.value='';
+}
+
+// ─── APLICAR ──────────────────────────────────────
+function aplicarPersonalizacao(){
+  const primary = document.getElementById('clrPrimary').value;
+  const accent  = document.getElementById('clrAccent').value;
+  const text    = document.getElementById('clrText').value;
+  const opacity = parseInt(document.getElementById('rngOpacity').value)/100;
+  custState = {...custState, primary, accent, text, opacity:parseInt(document.getElementById('rngOpacity').value)};
+
+  // Fundo
+  const bgEl = document.querySelector('.bg') || document.querySelector('.bg-scene') || document.body;
+  if(customBg){
+    bgEl.style.backgroundImage=`url("${customBg}")`;
+    bgEl.style.backgroundSize='cover';
+    bgEl.style.backgroundPosition='center';
+    bgEl.style.background='';
+    bgEl.style.opacity=opacity;
+  } else {
+    bgEl.style.backgroundImage='';
+    bgEl.style.background=custState.bg||PRESETS_DEFAULT.faroeste.bg;
+    bgEl.style.opacity=opacity;
+  }
+
+  // Injetar CSS dinâmico
+  let s=document.getElementById('cust-live-style');
+  if(!s){s=document.createElement('style');s.id='cust-live-style';document.head.appendChild(s);}
+  s.textContent=`
+    .poster-band,.top-bar,.ph-top,.card-header,.intro-hero,.result-hero{background:${primary} !important;}
+    .poster-wanted-word,.wait-waited,.wait-title span,.msg-para,.msg-nome,.header-title span,.score-big{color:${accent} !important;}
+    .cust-color{accent-color:${accent};}
+    .progress-bar,.score-bar-fill,.btn-send,.btn-begin,.btn-cust-apply{background:linear-gradient(135deg,${primary},${accent}) !important;color:${primary==='#0D0D0D'?'#fff':'#1A0800'} !important;}
+    .deco-line-diamond,.msg-divider-diamond{background:${accent} !important;}
+    .top-brand,.cust-title,.event-label,.field label,.cust-label,.cust-section,.cust-preset-title{color:${accent} !important;}
+    .poster-nome,.msg-texto,.header-title,.wait-wanted{color:${text} !important;}
+    .field input,.field select,.field textarea,.cust-input,.save-theme-input{color:${text} !important;border-color:${accent}44 !important;}
+    .card,.card-header,.msg-card,.wanted-poster{border-color:${accent} !important;}
+    .rope-deco{background:repeating-linear-gradient(90deg,${primary} 0,${primary} 6px,${accent} 6px,${accent} 10px) !important;}
+    :root{--brand:${primary};--gold:${accent};--gold2:${accent};}
+  `;
+}
+
+// ─── RESET ────────────────────────────────────────
+function resetPersonalizacao(){
+  document.getElementById('cust-live-style')?.remove();
+  const bgEl=document.querySelector('.bg')||document.querySelector('.bg-scene')||document.body;
+  bgEl.style='';
+  customBg=null;
+  document.getElementById('bgPreview').innerHTML='sem imagem';
+  document.getElementById('clrPrimary').value='#3D1F00';document.getElementById('txtPrimary').value='#3D1F00';
+  document.getElementById('clrAccent').value='#C8963E'; document.getElementById('txtAccent').value='#C8963E';
+  document.getElementById('clrText').value='#F5E0B0';  document.getElementById('txtText').value='#F5E0B0';
+  document.getElementById('rngOpacity').value='85';document.getElementById('opacLabel').textContent='85%';
+  document.querySelectorAll('.cust-preset').forEach((e,i)=>e.classList.toggle('active',i===0));
+  custState={primary:'#3D1F00',accent:'#C8963E',text:'#F5E0B0',bg:PRESETS_DEFAULT.faroeste.bg,img:null,opacity:85};
+}
+
+function togglePanel(){
+  document.getElementById('cust-panel').classList.toggle('open');
+}
+
+// Inicializar
+carregarTemasSalvos();
+</script>
+
+</body>
+</html>

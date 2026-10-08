@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Correio Diamante — Entre Laços 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{height:100%;}
+body{font-family:'Lato',sans-serif;min-height:100vh;background:radial-gradient(ellipse at top,#3D1F00 0%,#1A0800 60%);display:flex;align-items:center;justify-content:center;padding:2rem 1rem 3rem;position:relative;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(200,150,62,0.06),transparent);pointer-events:none;z-index:0;}
+.string-lights{position:fixed;top:0;left:0;right:0;height:90px;pointer-events:none;z-index:0;}
+.string-lights svg{width:100%;height:90px;}
+.card{position:relative;z-index:1;max-width:480px;width:100%;background:linear-gradient(160deg,rgba(50,20,0,0.97) 0%,rgba(70,32,5,0.95) 100%);border-radius:2px;padding:0 0 2.5rem;box-shadow:0 0 0 1px #8B6000,0 0 0 4px rgba(139,96,0,0.15),0 0 0 5px #5C3E00,0 24px 80px rgba(0,0,0,0.7);overflow:hidden;}
+.card-header{background:linear-gradient(180deg,#2C1200 0%,#3D1A00 100%);padding:2rem 2rem 1.5rem;text-align:center;position:relative;border-bottom:1px solid #8B6000;}
+.card-header::before{content:'';position:absolute;bottom:-1px;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#C8963E 20%,#E9C46A 50%,#C8963E 80%,transparent);}
+.rope-deco{width:60px;height:3px;background:repeating-linear-gradient(90deg,#8B6914 0,#8B6914 6px,#C8963E 6px,#C8963E 10px);border-radius:2px;margin:0 auto 1.25rem;box-shadow:0 1px 4px rgba(0,0,0,0.5);}
+.event-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#8B6914;margin-bottom:10px;}
+.header-title{font-family:'Playfair Display',serif;color:#F5E0B0;font-size:28px;text-align:center;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,0.6);}
+.header-title span{font-style:italic;color:#E9C46A;display:block;font-size:36px;}
+.header-sub{font-size:12px;color:rgba(245,224,176,0.55);margin-top:8px;line-height:1.6;letter-spacing:0.04em;}
+.envelope-wrap{width:80px;height:56px;margin:1.5rem auto 0;}
+.envelope-wrap svg{width:100%;height:100%;}
+.card-body{padding:1.75rem 1.75rem 0;}
+.deco-line{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem;}
+.deco-line-bar{flex:1;height:1px;background:linear-gradient(90deg,transparent,#8B6000,transparent);}
+.deco-line-diamond{width:8px;height:8px;background:#C8963E;transform:rotate(45deg);flex-shrink:0;}
+.field{margin-bottom:1.2rem;}
+.field label{display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:#C8963E;margin-bottom:6px;}
+.field input,.field select,.field textarea{width:100%;padding:11px 14px;background:rgba(245,224,176,0.04);border:1px solid rgba(139,96,0,0.45);border-radius:1px;font-family:'Lato',sans-serif;font-size:14px;color:#F5E0B0;outline:none;transition:border-color 0.2s,background 0.2s;appearance:none;-webkit-appearance:none;}
+.field input::placeholder,.field textarea::placeholder{color:rgba(245,224,176,0.25);}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#C8963E;background:rgba(245,224,176,0.07);}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C8963E' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer;}
+.field select option{background:#2C1200;color:#F5E0B0;}
+.field textarea{min-height:100px;resize:vertical;line-height:1.6;}
+.char-count{font-size:10px;color:rgba(245,224,176,0.3);text-align:right;margin-top:3px;letter-spacing:0.05em;}
+.sending-msg{display:none;text-align:center;padding:10px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.15em;color:#C8963E;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.spin{display:inline-block;animation:spin 1s linear infinite;margin-right:6px;}
+.btn-send{width:100%;padding:14px;margin-top:0.25rem;background:linear-gradient(135deg,#8B6000 0%,#C8963E 40%,#E9C46A 60%,#C8963E 80%,#8B6000 100%);color:#1A0800;border:none;border-radius:1px;font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 12px rgba(200,150,62,0.3);transition:opacity 0.2s,transform 0.1s;}
+.btn-send:hover{opacity:0.92;transform:translateY(-1px);}
+.btn-send:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.success-box{display:none;text-align:center;padding:3rem 2rem;}
+.success-seal{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#8B6000,#C8963E,#E9C46A);margin:0 auto 1.25rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(200,150,62,0.4);}
+.success-seal svg{width:48px;height:48px;}
+.success-title{font-family:'Playfair Display',serif;font-style:italic;color:#E9C46A;font-size:26px;margin-bottom:8px;}
+.success-sub{color:rgba(245,224,176,0.6);font-size:13px;line-height:1.7;}
+.btn-novo{margin-top:1.5rem;padding:10px 28px;background:transparent;border:1px solid #8B6000;color:#C8963E;cursor:pointer;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.15em;}
+.card-footer{text-align:center;margin-top:1.75rem;padding-top:1rem;border-top:1px solid rgba(139,96,0,0.2);}
+.card-footer-text{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;color:rgba(139,96,0,0.5);text-transform:uppercase;}
+</style>
+</head>
+<body>
+<div class="string-lights">
+  <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="b1" cx="50%" cy="30%" r="50%"><stop offset="0%" stop-color="#FFF9C4"/><stop offset="40%" stop-color="#F0A500"/><stop offset="100%" stop-color="#8B5E00"/></radialGradient>
+      <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <path d="M0,8 Q180,32 360,12 Q540,0 720,18 Q900,36 1080,14 Q1260,0 1440,16" stroke="#4A2800" stroke-width="1.5" fill="none" opacity="0.8"/>
+    <g filter="url(#glow)">
+      <ellipse cx="120" cy="28" rx="7" ry="9" fill="url(#b1)" opacity="0.9"/><rect x="117" y="19" width="6" height="3" rx="1" fill="#6B3800"/>
+      <ellipse cx="300" cy="16" rx="7" ry="9" fill="url(#b1)" opacity="0.85"/><rect x="297" y="7" width="6" height="3" rx="1" fill="#6B3800"/>
+      <ellipse cx="480" cy="22" rx="7" ry="9" fill="url(#b1)" opacity="0.95"/><rect x="477" y="13" width="6" height="3" rx="1" fill="#6B3800"/>
+      <ellipse cx="660" cy="8" rx="7" ry="9" fill="url(#b1)" opacity="0.88"/><rect x="657" y="-1" width="6" height="3" rx="1" fill="#6B3800"/>
+      <ellipse cx="840" cy="24" rx="7" ry="9" fill="url(#b1)" opacity="0.92"/><rect x="837" y="15" width="6" height="3" rx="1" fill="#6B3800"/>
+      <ellipse cx="1020" cy="12" rx="7" ry="9" fill="url(#b1)" opacity="0.87"/><rect x="1017" y="3" width="6" height="3" rx="1" fill="#6B3800"/>
+      <ellipse cx="1200" cy="26" rx="7" ry="9" fill="url(#b1)" opacity="0.93"/><rect x="1197" y="17" width="6" height="3" rx="1" fill="#6B3800"/>
+      <ellipse cx="1380" cy="10" rx="7" ry="9" fill="url(#b1)" opacity="0.86"/><rect x="1377" y="1" width="6" height="3" rx="1" fill="#6B3800"/>
+    </g>
+  </svg>
+</div>
+<div class="card">
+  <div class="card-header">
+    <div class="rope-deco"></div>
+    <div class="event-label">Entre Laços · Confraternização 2026</div>
+    <div class="header-title">Correio<span>Diamante</span></div>
+    <div class="envelope-wrap">
+      <svg viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="78" height="54" rx="2" fill="#2C1200" stroke="#C8963E" stroke-width="1.5"/>
+        <path d="M1 1 L40 32 L79 1" stroke="#C8963E" stroke-width="1.2" fill="none"/>
+        <path d="M1 55 L28 28" stroke="#8B6000" stroke-width="1" opacity="0.6"/>
+        <path d="M79 55 L52 28" stroke="#8B6000" stroke-width="1" opacity="0.6"/>
+        <circle cx="40" cy="40" r="8" fill="#8B0000" stroke="#C8963E" stroke-width="1"/>
+        <text x="40" y="44" text-anchor="middle" font-family="serif" font-size="9" fill="#E9C46A">✦</text>
+      </svg>
+    </div>
+    <p class="header-sub">Mande um recadinho especial.<br>Sua mensagem aparecerá no telão!</p>
+  </div>
+  <div class="card-body">
+    <div id="form-area">
+      <div class="deco-line"><div class="deco-line-bar"></div><div class="deco-line-diamond"></div><div class="deco-line-bar"></div></div>
+      <div class="field"><label>Seu nome</label><input type="text" id="nome" placeholder="Como você se chama?" maxlength="50"/></div>
+      <div class="field">
+        <label>Seu setor / loja</label>
+        <select id="setor">
+          <option value="">Selecione...</option>
+          <option>CP Ófris – Ativação</option>
+          <option>CP Ófris – Captação</option>
+          <option>CP Ófris – Receptivo</option>
+          <option>CP Ófris – Estoque e Logística</option>
+          <option>CP Ófris – Atendimento</option>
+          <option>CP Ófris – Canal Loja</option>
+          <option>Grupo Ófris – Administrativo</option>
+          <option>Grupo Ófris – Presidência</option>
+          <option>Grupo Ófris – Diretoria</option>
+          <option>CP Flor do Campo – Canal Loja</option>
+          <option>CP Flor do Campo – Ativação</option>
+          <option>CP Flor do Campo – Captação</option>
+          <option>CP Flor do Campo – Estoque e Logística</option>
+          <option>CP Flor do Campo – Atendimento</option>
+        </select>
+      </div>
+      <div class="field"><label>Para quem é a mensagem?</label><input type="text" id="para" placeholder="Nome da pessoa ou 'Para toda a equipe'" maxlength="60"/></div>
+      <div class="field">
+        <label>Seu recadinho</label>
+        <textarea id="mensagem" placeholder="Escreva sua mensagem com carinho..." maxlength="280" oninput="document.getElementById('charNum').textContent=this.value.length"></textarea>
+        <div class="char-count"><span id="charNum">0</span> / 280</div>
+      </div>
+      <div class="sending-msg" id="sendingMsg"><span class="spin">⟳</span> Enviando sua mensagem...</div>
+      <button class="btn-send" id="btnEnviar" onclick="enviar()">Enviar recado</button>
+    </div>
+    <div class="success-box" id="successArea">
+      <div class="success-seal"><svg viewBox="0 0 48 48" fill="none"><path d="M8 24 L20 36 L40 14" stroke="#1A0800" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="success-title">Recado enviado!</div>
+      <p class="success-sub">Sua mensagem já está a caminho do telão.<br>Que bonito poder celebrar juntos!</p>
+      <button class="btn-novo" onclick="novo()">Enviar outro recado</button>
+    </div>
+  </div>
+  <div class="card-footer"><div class="card-footer-text">Entre Laços · Duas histórias, um só propósito · 2026</div></div>
+</div>
+<script>
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbyJ5FzXFS86X9fWXtdd_90mW_jW6tL8ji1d0oDtxMorsejHESvV4zS-HUpwmK-HJnQc/exec';
+function enviar(){
+  const nome=document.getElementById('nome').value.trim();
+  const setor=document.getElementById('setor').value;
+  const para=document.getElementById('para').value.trim();
+  const mensagem=document.getElementById('mensagem').value.trim();
+  if(!nome||!setor||!para||!mensagem){alert('Preencha todos os campos antes de enviar.');return;}
+  document.getElementById('btnEnviar').disabled=true;
+  document.getElementById('sendingMsg').style.display='block';
+  const payload={tipo:'correio',timestamp:new Date().toLocaleString('pt-BR'),nome,setor,para,mensagem};
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(()=>sucesso()).catch(()=>sucesso());
+}
+function sucesso(){
+  document.getElementById('form-area').style.display='none';
+  document.getElementById('successArea').style.display='block';
+}
+function novo(){
+  document.getElementById('nome').value='';
+  document.getElementById('setor').value='';
+  document.getElementById('para').value='';
+  document.getElementById('mensagem').value='';
+  document.getElementById('charNum').textContent='0';
+  document.getElementById('btnEnviar').disabled=false;
+  document.getElementById('sendingMsg').style.display='none';
+  document.getElementById('form-area').style.display='block';
+  document.getElementById('successArea').style.display='none';
+}
+</script>
+</body>
+</html>

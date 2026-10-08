@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Procura-se — Entre Laços 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Special Elite',serif;min-height:100vh;background:radial-gradient(ellipse at center,#2A1200 0%,#0D0500 100%);display:flex;align-items:center;justify-content:center;padding:2rem 1rem 3rem;position:relative;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(92deg,transparent 0,transparent 3px,rgba(0,0,0,0.06) 3px,rgba(0,0,0,0.06) 4px),repeating-linear-gradient(180deg,transparent 0,transparent 12px,rgba(60,30,0,0.04) 12px,rgba(60,30,0,0.04) 13px);pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 30%,rgba(0,0,0,0.65) 100%);pointer-events:none;z-index:0;}
+.poster{position:relative;z-index:1;max-width:460px;width:100%;background:linear-gradient(160deg,#F2D98A 0%,#E8C96A 30%,#D4A832 70%,#C49010 100%);border-radius:2px;padding:0 0 2rem;box-shadow:0 0 0 2px #8B6000,0 0 0 8px #5C3800,0 0 0 10px #3D2000,inset 0 0 60px rgba(92,56,0,0.25),0 30px 100px rgba(0,0,0,0.8);overflow:hidden;}
+.poster::before{content:'';position:absolute;inset:10px;border:1px solid rgba(92,48,0,0.25);pointer-events:none;z-index:10;}
+.poster-top{background:linear-gradient(180deg,#5C1A00 0%,#7A2500 100%);padding:1rem 1.5rem 0.75rem;text-align:center;border-bottom:4px solid #3D1000;position:relative;z-index:1;}
+.poster-subtitle{font-family:'Special Elite',serif;font-size:10px;letter-spacing:0.35em;color:rgba(245,215,140,0.7);margin-bottom:4px;}
+.poster-title{font-family:'Rye',serif;font-size:52px;color:#F5D78C;line-height:1;letter-spacing:0.08em;text-shadow:2px 2px 0 #3D1000,4px 4px 8px rgba(0,0,0,0.5);}
+.poster-sub{font-family:'Special Elite',serif;font-size:11px;letter-spacing:0.3em;color:rgba(245,215,140,0.65);margin-top:4px;text-transform:uppercase;}
+.photo-area{padding:1.25rem 1.5rem 0;display:flex;justify-content:center;position:relative;z-index:1;}
+.photo-frame{width:130px;height:130px;border:3px solid #5C3800;background:linear-gradient(145deg,#2C1500,#1A0A00);position:relative;overflow:hidden;cursor:pointer;box-shadow:inset 0 0 20px rgba(0,0,0,0.5),3px 3px 10px rgba(0,0,0,0.4);}
+.photo-frame input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:3;}
+.photo-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;}
+.photo-silhouette{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;z-index:1;}
+.photo-silhouette svg{width:80px;height:100px;opacity:0.25;}
+.photo-tip{font-family:'Special Elite',serif;font-size:9px;letter-spacing:0.12em;color:#5C3800;text-align:center;margin-top:6px;text-transform:uppercase;opacity:0.7;}
+.rm-photo-btn{position:absolute;top:4px;right:4px;background:#5C0000;color:#F5D78C;border:1px solid #8B0000;width:20px;height:20px;font-size:11px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:4;}
+.photo-frame:has(img) .rm-photo-btn{display:flex;}
+.photo-frame:has(img) .photo-silhouette{display:none;}
+.poster-body{padding:1rem 1.5rem 0;position:relative;z-index:1;}
+.paper-line{border:none;border-bottom:1px solid rgba(92,56,0,0.2);margin:0.9rem 0;}
+.field-label{font-family:'Rye',serif;font-size:10px;letter-spacing:0.2em;color:#5C3800;text-transform:uppercase;margin-bottom:4px;display:block;}
+.field-input{width:100%;padding:9px 12px;background:rgba(92,48,0,0.06);border:1px solid rgba(92,48,0,0.3);border-radius:1px;font-family:'Special Elite',serif;font-size:14px;color:#2C1000;outline:none;transition:border-color 0.2s;}
+.field-input::placeholder{color:rgba(44,16,0,0.35);}
+.field-input:focus{border-color:#8B5E00;}
+select.field-input{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235C3800' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-color:rgba(92,48,0,0.06);padding-right:32px;}
+select.field-input option{background:#F2D98A;color:#2C1000;}
+textarea.field-input{min-height:80px;resize:vertical;line-height:1.6;}
+.char-count{font-size:9px;color:rgba(44,16,0,0.35);text-align:right;margin-top:2px;}
+.reward-banner{margin:1rem 0;background:linear-gradient(135deg,#5C1A00,#7A2500);padding:8px 16px;text-align:center;border-top:1px solid rgba(200,150,62,0.3);border-bottom:1px solid rgba(200,150,62,0.3);}
+.reward-text{font-family:'Rye',serif;font-size:11px;color:#F5D78C;letter-spacing:0.2em;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.sending-msg{display:none;text-align:center;padding:8px;font-family:'Rye',serif;font-size:11px;letter-spacing:0.12em;color:#5C1A00;}
+.spin{display:inline-block;animation:spin 1s linear infinite;margin-right:6px;}
+.btn-send{width:100%;padding:13px;background:linear-gradient(135deg,#5C1A00,#8B3000,#5C1A00);color:#F5D78C;border:2px solid #C8963E;font-family:'Rye',serif;font-size:15px;letter-spacing:0.15em;cursor:pointer;transition:opacity 0.2s;box-shadow:0 2px 12px rgba(0,0,0,0.4);}
+.btn-send:hover{opacity:0.9;}
+.btn-send:disabled{opacity:0.5;cursor:not-allowed;}
+.poster-footer{padding:0.75rem 1.5rem 0;display:flex;justify-content:space-between;border-top:1px solid rgba(92,48,0,0.2);position:relative;z-index:1;}
+.footer-txt{font-size:9px;color:#5C3800;opacity:0.6;letter-spacing:0.12em;text-transform:uppercase;}
+.success-box{display:none;padding:3rem 2rem;text-align:center;position:relative;z-index:1;}
+.success-stamp{width:90px;height:90px;border-radius:50%;border:4px solid #5C1A00;margin:0 auto 1.25rem;display:flex;align-items:center;justify-content:center;transform:rotate(-15deg);box-shadow:0 4px 20px rgba(0,0,0,0.3);}
+.success-stamp-inner{font-family:'Rye',serif;font-size:10px;color:#5C1A00;letter-spacing:0.15em;text-align:center;line-height:1.4;}
+.success-title{font-family:'Rye',serif;color:#5C1A00;font-size:20px;margin-bottom:8px;letter-spacing:0.1em;}
+.success-sub{font-family:'Special Elite',serif;color:#3D1F00;font-size:13px;line-height:1.7;opacity:0.7;}
+.btn-novo{margin-top:1.25rem;padding:10px 24px;background:transparent;border:1px solid #5C3800;color:#5C3800;cursor:pointer;font-family:'Rye',serif;font-size:10px;letter-spacing:0.15em;}
+.form-field{margin-bottom:1rem;}
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="poster-top">
+    <div class="poster-subtitle">Entre Laços · Confra 2026 · Grupo Ófris</div>
+    <div class="poster-title">PROCURA-SE</div>
+    <div class="poster-sub">Duas histórias, um só propósito</div>
+  </div>
+  <div class="photo-area">
+    <div>
+      <div class="photo-frame" id="photoFrame">
+        <input type="file" accept="image/*" onchange="carregarFoto(this)">
+        <div class="photo-silhouette">
+          <svg viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="40" cy="28" rx="24" ry="4" fill="#C8963E"/>
+            <path d="M20 28 Q22 18 40 16 Q58 18 60 28 Z" fill="#C8963E"/>
+            <rect x="16" y="26" width="48" height="5" rx="2" fill="#8B6000"/>
+            <ellipse cx="40" cy="42" rx="14" ry="16" fill="#C8963E"/>
+            <path d="M22 68 Q26 58 40 56 Q54 58 58 68 L62 90 H18 Z" fill="#8B6000"/>
+          </svg>
+        </div>
+        <button class="rm-photo-btn" onclick="removerFoto(event)">✕</button>
+      </div>
+      <div class="photo-tip">Toque para adicionar foto (opcional)</div>
+    </div>
+  </div>
+  <div id="form-area">
+    <div class="poster-body">
+      <hr class="paper-line">
+      <div class="form-field">
+        <label class="field-label">Nome do procurado</label>
+        <input type="text" class="field-input" id="nome" placeholder="Seu nome completo" maxlength="50"/>
+      </div>
+      <div class="form-field">
+        <label class="field-label">Setor / Loja</label>
+        <select class="field-input" id="setor">
+          <option value="">Selecione...</option>
+          <option>CP Ófris – Ativação</option>
+          <option>CP Ófris – Captação</option>
+          <option>CP Ófris – Receptivo</option>
+          <option>CP Ófris – Estoque e Logística</option>
+          <option>CP Ófris – Atendimento</option>
+          <option>CP Ófris – Canal Loja</option>
+          <option>Grupo Ófris – Administrativo</option>
+          <option>Grupo Ófris – Presidência</option>
+          <option>Grupo Ófris – Diretoria</option>
+          <option>CP Flor do Campo – Canal Loja</option>
+          <option>CP Flor do Campo – Ativação</option>
+          <option>CP Flor do Campo – Captação</option>
+          <option>CP Flor do Campo – Estoque e Logística</option>
+          <option>CP Flor do Campo – Atendimento</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="field-label">Seria procurado por quê?</label>
+        <textarea class="field-input" id="motivo" placeholder="Ex: Pelo sorriso que ilumina qualquer ambiente..." maxlength="200" oninput="document.getElementById('charNum').textContent=this.value.length"></textarea>
+        <div class="char-count"><span id="charNum">0</span> / 200</div>
+      </div>
+      <div class="reward-banner"><div class="reward-text">★ · Recompensa: muito carinho · ★</div></div>
+      <div class="sending-msg" id="sendingMsg"><span class="spin">⟳</span> Publicando seu cartaz...</div>
+      <button class="btn-send" id="btnEnviar" onclick="enviar()">Publicar cartaz</button>
+    </div>
+    <div class="poster-footer">
+      <span class="footer-txt">Grupo Ófris</span>
+      <span class="footer-txt">19 · 10 · 2026</span>
+      <span class="footer-txt">Entre Laços</span>
+    </div>
+  </div>
+  <div class="success-box" id="successArea">
+    <div class="success-stamp"><div class="success-stamp-inner">ENVIADO<br>COM SUCESSO</div></div>
+    <div class="success-title">Obrigado!</div>
+    <p class="success-sub">Sua participação foi registrada.<br>Fique de olho no telão!</p>
+    <button class="btn-novo" onclick="novo()">Enviar outro</button>
+  </div>
+</div>
+<script>
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbyJ5FzXFS86X9fWXtdd_90mW_jW6tL8ji1d0oDtxMorsejHESvV4zS-HUpwmK-HJnQc/exec';
+let fotoBase64=null;
+function carregarFoto(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{fotoBase64=e.target.result;const frame=document.getElementById('photoFrame');let img=frame.querySelector('img');if(!img){img=document.createElement('img');frame.appendChild(img);}img.src=fotoBase64;};
+  reader.readAsDataURL(file);
+}
+function removerFoto(e){
+  e.stopPropagation();e.preventDefault();fotoBase64=null;
+  const frame=document.getElementById('photoFrame');
+  const img=frame.querySelector('img');if(img)img.remove();
+  const inp=frame.querySelector('input');if(inp)inp.value='';
+}
+function enviar(){
+  const nome=document.getElementById('nome').value.trim();
+  const setor=document.getElementById('setor').value;
+  const motivo=document.getElementById('motivo').value.trim();
+  if(!nome||!setor||!motivo){alert('Preencha todos os campos!');return;}
+  document.getElementById('btnEnviar').disabled=true;
+  document.getElementById('sendingMsg').style.display='block';
+  const payload={tipo:'procurase',timestamp:new Date().toLocaleString('pt-BR'),nome,setor,motivo,foto:fotoBase64||''};
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(()=>sucesso()).catch(()=>sucesso());
+}
+function sucesso(){
+  document.getElementById('form-area').style.display='none';
+  document.getElementById('successArea').style.display='block';
+}
+function novo(){
+  document.getElementById('nome').value='';
+  document.getElementById('setor').value='';
+  document.getElementById('motivo').value='';
+  document.getElementById('charNum').textContent='0';
+  fotoBase64=null;
+  const frame=document.getElementById('photoFrame');
+  const img=frame.querySelector('img');if(img)img.remove();
+  const inp=frame.querySelector('input');if(inp)inp.value='';
+  document.getElementById('btnEnviar').disabled=false;
+  document.getElementById('sendingMsg').style.display='none';
+  document.getElementById('form-area').style.display='block';
+  document.getElementById('successArea').style.display='none';
+}
+</script>
+</body>
+</html>

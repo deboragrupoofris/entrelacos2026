@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telão — Procura-se · Entre Laços 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;}
+body{font-family:'Special Elite',serif;background:#0D0500;display:flex;align-items:center;justify-content:center;position:relative;}
+.bg{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,#0D0300 0%,#1A0800 12%,#3D1500 30%,#8B3000 50%,#C85000 60%,#8B3000 70%,#3D1500 82%,#0D0500 100%);}
+.vignette{position:fixed;inset:0;z-index:1;background:radial-gradient(ellipse 80% 80% at 50% 50%,transparent 20%,rgba(0,0,0,0.75) 100%);pointer-events:none;}
+.desert{position:fixed;bottom:0;left:0;right:0;height:180px;z-index:2;pointer-events:none;}
+.desert svg{width:100%;height:180px;}
+.top-bar{position:fixed;top:0;left:0;right:0;padding:14px 2.5rem;display:flex;align-items:center;justify-content:space-between;z-index:10;background:linear-gradient(180deg,rgba(13,3,0,0.9),transparent);}
+.top-brand{font-family:'Rye',serif;color:#C8963E;font-size:16px;letter-spacing:0.12em;}
+.top-count{font-family:'Special Elite',serif;font-size:12px;color:rgba(200,150,62,0.4);letter-spacing:0.15em;}
+#sw{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;text-align:center;}
+.wstar{width:100px;height:100px;margin:0 auto 2rem;animation:rot 20s linear infinite;}
+@keyframes rot{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.wt{font-family:'Rye',serif;font-size:80px;color:#C8963E;letter-spacing:0.08em;text-shadow:4px 4px 0 #3D1000,8px 8px 16px rgba(0,0,0,0.6);line-height:1;margin-bottom:8px;}
+.ws{font-family:'Special Elite',serif;font-size:18px;letter-spacing:0.4em;color:rgba(200,150,62,0.5);text-transform:uppercase;}
+#sp{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:5;padding:5rem 3rem 4rem;}
+.poster{background:linear-gradient(168deg,#F5E4A0 0%,#EDCF70 25%,#D4A020 60%,#C49010 80%,#B07800 100%);border-radius:2px;max-width:660px;width:100%;padding:0 0 1.25rem;position:relative;box-shadow:0 0 0 2px #6B4400,0 0 0 6px #4A2A00,0 0 0 10px #2C1500,inset 0 0 80px rgba(92,48,0,0.3),0 30px 120px rgba(0,0,0,0.85);}
+@keyframes pd{from{opacity:0;transform:translateY(-50px) scale(0.92);}to{opacity:1;transform:translateY(0) scale(1);}}
+.poster.show{animation:pd 1s cubic-bezier(0.22,1,0.36,1) both;}
+.poster::before{content:'';position:absolute;inset:10px;border:1px solid rgba(92,48,0,0.18);z-index:0;pointer-events:none;}
+.pb-band{background:linear-gradient(180deg,#5C0A00,#7A1200);padding:0.8rem 2rem;text-align:center;border-bottom:4px solid #3D0800;position:relative;z-index:2;}
+.pb-sub{font-family:'Special Elite',serif;font-size:10px;letter-spacing:0.4em;color:rgba(245,215,140,0.6);margin-bottom:3px;}
+.pb-title{font-family:'Rye',serif;font-size:62px;color:#F5D78C;line-height:1;letter-spacing:0.06em;text-shadow:3px 3px 0 #2C0400,6px 6px 12px rgba(0,0,0,0.5);}
+.pb-proc{font-family:'Special Elite',serif;font-size:12px;letter-spacing:0.3em;color:rgba(245,215,140,0.65);text-transform:uppercase;margin-top:3px;}
+.pb-photo-wrap{display:flex;justify-content:center;padding:1rem 2rem 0.5rem;position:relative;z-index:2;}
+.pb-photo{width:160px;height:160px;border:4px solid #5C3400;background:linear-gradient(145deg,#2C1200,#1A0800);position:relative;overflow:hidden;box-shadow:inset 0 0 30px rgba(0,0,0,0.6),4px 4px 14px rgba(0,0,0,0.5);}
+.pb-photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:2;}
+.pb-photo-sil{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;z-index:1;}
+.pb-photo-sil svg{width:100px;height:140px;opacity:0.18;}
+.pb-photo-lbl{position:absolute;bottom:0;left:0;right:0;background:rgba(92,52,0,0.75);font-family:'Rye',serif;font-size:8px;letter-spacing:0.12em;color:#F5D78C;text-align:center;padding:3px;text-transform:uppercase;z-index:3;}
+.pb-content{padding:0.4rem 2rem 0;position:relative;z-index:2;}
+.pb-nome{font-family:'Rye',serif;font-size:32px;color:#2C1000;letter-spacing:0.06em;text-align:center;margin-bottom:2px;}
+.pb-setor{font-family:'Special Elite',serif;font-size:11px;color:rgba(44,16,0,0.65);text-align:center;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
+.pb-hr{border:none;border-bottom:1px solid rgba(92,48,0,0.25);margin:6px 0;}
+.pb-ml{font-family:'Rye',serif;font-size:9px;color:rgba(92,48,0,0.65);letter-spacing:0.2em;text-transform:uppercase;text-align:center;margin-bottom:5px;}
+.pb-motivo{font-family:'Special Elite',serif;font-size:19px;color:#1A0800;line-height:1.5;text-align:center;font-style:italic;margin-bottom:10px;}
+.pb-reward{background:rgba(92,48,0,0.1);border:1.5px solid rgba(92,48,0,0.22);padding:6px 16px;text-align:center;}
+.pb-rl{font-family:'Rye',serif;font-size:9px;color:rgba(92,48,0,0.6);letter-spacing:0.18em;text-transform:uppercase;}
+.pb-rv{font-family:'Rye',serif;font-size:16px;color:#5C1A00;letter-spacing:0.08em;}
+.pb-logos{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 2rem 0;border-top:1px solid rgba(92,48,0,0.18);margin-top:0.6rem;position:relative;z-index:2;}
+.pb-logo-t{font-family:'Rye',serif;font-size:11px;color:#3D1500;letter-spacing:0.06em;}
+.pb-logo-s{font-family:'Special Elite',serif;font-size:8px;color:rgba(61,21,0,0.55);letter-spacing:0.08em;}
+.pb-footer{display:flex;justify-content:space-between;padding:0.4rem 2rem 0;position:relative;z-index:2;}
+.pb-ft{font-family:'Special Elite',serif;font-size:9px;color:rgba(44,16,0,0.5);letter-spacing:0.08em;text-transform:uppercase;}
+.prog-wrap{position:fixed;bottom:0;left:0;right:0;height:5px;background:rgba(92,48,0,0.2);z-index:10;}
+.prog-bar{height:5px;background:linear-gradient(90deg,#5C1A00,#C8963E,#E9C46A);width:100%;}
+#status{position:fixed;bottom:10px;right:10px;font-size:10px;color:rgba(200,150,62,0.4);z-index:20;font-family:monospace;}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="vignette"></div>
+<div class="desert">
+  <svg viewBox="0 0 1920 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,165 Q480,140 960,158 Q1440,176 1920,152 L1920,180 L0,180Z" fill="#1A0800" opacity="0.9"/>
+    <g fill="#0D0500" opacity="0.85">
+      <rect x="280" y="110" width="10" height="55" rx="2"/><rect x="270" y="128" width="20" height="6" rx="2"/><rect x="256" y="122" width="14" height="6" rx="2"/>
+      <rect x="820" y="95" width="12" height="70" rx="2"/><rect x="808" y="118" width="24" height="7" rx="2"/>
+      <rect x="1580" y="102" width="10" height="63" rx="2"/><rect x="1570" y="125" width="20" height="6" rx="2"/>
+    </g>
+  </svg>
+</div>
+<div class="top-bar">
+  <div class="top-brand">Procura-se · Entre Laços 2026</div>
+  <div class="top-count" id="topCount"></div>
+</div>
+<div id="sw">
+  <div class="wstar">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35" fill="#C8963E" stroke="#8B6000" stroke-width="1.5"/>
+      <polygon points="50,18 58,38 80,38 63,51 70,73 50,60 30,73 37,51 20,38 42,38" fill="#E9C46A"/>
+      <circle cx="50" cy="50" r="10" fill="#8B6000" stroke="#C8963E" stroke-width="1"/>
+      <circle cx="50" cy="50" r="6" fill="#C8963E"/>
+    </svg>
+  </div>
+  <div class="wt">PROCURA-SE</div>
+  <div class="ws">Aguardando fugitivos...</div>
+</div>
+<div id="sp">
+  <div class="poster" id="poster">
+    <div class="pb-band">
+      <div class="pb-sub">Entre Laços · Confra 2026 · Grupo Ófris</div>
+      <div class="pb-title">PROCURA-SE</div>
+      <div class="pb-proc">Duas histórias, um só propósito</div>
+    </div>
+    <div class="pb-photo-wrap">
+      <div class="pb-photo" id="pbPhoto">
+        <div class="pb-photo-sil">
+          <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="50" cy="44" rx="30" ry="5" fill="#C8963E"/>
+            <path d="M25 44 Q27 28 50 24 Q73 28 75 44Z" fill="#C8963E"/>
+            <rect x="20" y="40" width="60" height="7" rx="3" fill="#8B6000"/>
+            <ellipse cx="50" cy="62" rx="16" ry="18" fill="#C8963E"/>
+            <rect x="44" y="78" width="12" height="9" fill="#C8963E"/>
+            <path d="M28 110 Q32 88 50 84 Q68 88 72 110 L74 140 H26Z" fill="#8B6000"/>
+            <path d="M28 94 Q14 100 10 116" stroke="#8B6000" stroke-width="11" stroke-linecap="round"/>
+            <path d="M72 94 Q86 100 90 116" stroke="#8B6000" stroke-width="11" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="pb-photo-lbl">Retrato do procurado</div>
+      </div>
+    </div>
+    <div class="pb-content">
+      <div class="pb-nome" id="pbNome">—</div>
+      <div class="pb-setor" id="pbSetor">—</div>
+      <hr class="pb-hr">
+      <div class="pb-ml">Procurado por</div>
+      <div class="pb-motivo" id="pbMotivo">—</div>
+      <div class="pb-reward"><div class="pb-rl">Recompensa</div><div class="pb-rv">Muito carinho</div></div>
+    </div>
+    <div class="pb-logos">
+      <div><div class="pb-logo-t">cp ÓFRIS</div><div class="pb-logo-s">Franquias Grupo Boticário</div></div>
+      <div><div class="pb-logo-t">CP Flor do Campo</div><div class="pb-logo-s">Franquias Grupo Boticário</div></div>
+    </div>
+    <div class="pb-footer">
+      <span class="pb-ft" id="pbSetor2">—</span>
+      <span class="pb-ft">19 · 10 · 2026</span>
+      <span class="pb-ft">Grupo Ófris</span>
+    </div>
+  </div>
+</div>
+<div class="prog-wrap"><div class="prog-bar" id="pb"></div></div>
+<div id="status">conectando...</div>
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwo_y3lR8YVQ8CB_ktdflaeQegssLm-nzLOU8cX3imAGBl-4_ztWv51SvSfha4gRRNC/exec';
+const INTERVALO = 7000;
+const REFRESH   = 12000;
+let cartazes = [], idx = 0, timer = null;
+
+function buscar() {
+  fetch(SCRIPT_URL + '?tipo=procurase&t=' + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('status').textContent = 'ok · ' + data.length + ' procurado(s)';
+      if (data.length !== cartazes.length) {
+        cartazes = data;
+        document.getElementById('topCount').textContent = cartazes.length + ' procurado(s)';
+        if (!timer && cartazes.length > 0) iniciarSlide();
+      }
+    })
+    .catch(e => {
+      document.getElementById('status').textContent = 'erro: ' + e.message;
+    });
+}
+
+function iniciarSlide() {
+  mostrar();
+  timer = setInterval(mostrar, INTERVALO);
+}
+
+function mostrar() {
+  if (!cartazes.length) {
+    document.getElementById('sw').style.display = 'flex';
+    document.getElementById('sp').style.display = 'none';
+    return;
+  }
+  if (idx >= cartazes.length) idx = 0;
+  const c = cartazes[idx++];
+  document.getElementById('sw').style.display = 'none';
+  document.getElementById('sp').style.display = 'flex';
+  const poster = document.getElementById('poster');
+  poster.classList.remove('show');
+  void poster.offsetWidth;
+  poster.classList.add('show');
+  // Foto
+  const ph = document.getElementById('pbPhoto');
+  const oldImg = ph.querySelector('img');
+  if (oldImg) oldImg.remove();
+  const sil = ph.querySelector('.pb-photo-sil');
+  const lbl = ph.querySelector('.pb-photo-lbl');
+  if (c.foto && c.foto.startsWith('data:')) {
+    const img = document.createElement('img');
+    img.src = c.foto;
+    ph.appendChild(img);
+    if (sil) sil.style.display = 'none';
+    if (lbl) lbl.style.display = 'none';
+  } else {
+    if (sil) sil.style.display = 'flex';
+    if (lbl) lbl.style.display = 'block';
+  }
+  document.getElementById('pbNome').textContent   = c.nome.toUpperCase();
+  document.getElementById('pbSetor').textContent  = c.setor;
+  document.getElementById('pbSetor2').textContent = c.setor;
+  document.getElementById('pbMotivo').textContent = '\u201c' + c.motivo + '\u201d';
+  // Progresso
+  const pb = document.getElementById('pb');
+  pb.style.transition = 'none';
+  pb.style.width = '100%';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    pb.style.transition = `width ${INTERVALO}ms linear`;
+    pb.style.width = '0%';
+  }));
+}
+
+buscar();
+setInterval(buscar, REFRESH);
+</script>
+</body>
+</html>

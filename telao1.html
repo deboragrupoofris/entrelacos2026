@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telão — Correio Diamante · Entre Laços 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Cinzel:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;}
+body{font-family:'Lato',sans-serif;background:linear-gradient(135deg,#1A0A00 0%,#3D1F00 35%,#6B3A00 65%,#2C1500 100%);display:flex;align-items:center;justify-content:center;position:relative;}
+.bg{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,#0D0300 0%,#1A0800 15%,#3D1500 35%,#6B2D00 55%,#8B3E00 65%,#4A1A00 80%,#1A0500 100%);}
+.top-bar{position:fixed;top:0;left:0;right:0;padding:14px 2.5rem;display:flex;align-items:center;justify-content:space-between;z-index:10;background:linear-gradient(180deg,rgba(13,3,0,0.9),transparent);}
+.top-brand{font-family:'Cinzel',serif;color:#C8963E;font-size:14px;letter-spacing:0.2em;text-transform:uppercase;}
+.top-count{font-size:12px;color:rgba(200,150,62,0.4);letter-spacing:0.12em;}
+/* Luzes varal */
+.lights{position:fixed;top:0;left:0;right:0;height:100px;pointer-events:none;z-index:2;}
+.lights svg{width:100%;height:100px;}
+@keyframes f1{0%,89%,91%,95%,100%{opacity:1;}90%,94%{opacity:0.4;}}
+@keyframes f2{0%,44%,46%,100%{opacity:0.9;}45%{opacity:0.2;}}
+.lg1{animation:f1 9s infinite;}
+.lg2{animation:f2 13s infinite 3s;}
+/* Silhueta árvores */
+.trees{position:fixed;bottom:0;left:0;right:0;height:150px;z-index:1;pointer-events:none;}
+.trees svg{width:100%;height:150px;}
+/* Tela espera */
+#sw{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;text-align:center;}
+.wenv{width:120px;height:84px;margin:0 auto 2rem;animation:fl 4s ease-in-out infinite;}
+@keyframes fl{0%,100%{transform:translateY(0);}50%{transform:translateY(-16px);}}
+.wt{font-family:'Playfair Display',serif;font-style:italic;color:#F5E0B0;font-size:72px;text-shadow:0 4px 20px rgba(0,0,0,0.5);}
+.wt span{color:#E9C46A;}
+.ws{font-family:'Cinzel',serif;color:rgba(200,150,62,0.5);font-size:14px;letter-spacing:0.3em;text-transform:uppercase;margin-top:10px;}
+/* Card mensagem */
+#sm{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:5;padding:8rem 4rem 5rem;}
+.mc{background:linear-gradient(145deg,rgba(44,18,0,0.97),rgba(65,28,0,0.94));border:1px solid #8B6000;max-width:880px;width:100%;padding:3.5rem;position:relative;box-shadow:0 0 0 1px rgba(139,96,0,0.3),0 40px 120px rgba(0,0,0,0.6);}
+.mc::before,.mc::after{content:'';position:absolute;width:36px;height:36px;border-color:#8B6000;border-style:solid;}
+.mc::before{top:14px;left:14px;border-width:1px 0 0 1px;}
+.mc::after{bottom:14px;right:14px;border-width:0 1px 1px 0;}
+@keyframes cin{from{opacity:0;transform:translateY(30px) scale(0.95);}to{opacity:1;transform:translateY(0) scale(1);}}
+.mc.show{animation:cin 0.8s cubic-bezier(0.22,1,0.36,1) both;}
+.mseal{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#6B0000,#8B1A1A);border:2px solid #C8963E;margin:0 auto 1.25rem;display:flex;align-items:center;justify-content:center;}
+.mpara-l{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.3em;color:#8B6000;text-transform:uppercase;text-align:center;margin-bottom:5px;}
+.mpara{font-family:'Playfair Display',serif;font-style:italic;color:#E9C46A;font-size:36px;text-align:center;margin-bottom:1.5rem;line-height:1.2;}
+.mdiv{display:flex;align-items:center;gap:14px;margin-bottom:1.5rem;}
+.mdiv-l{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(139,96,0,0.5),transparent);}
+.mdiv-d{width:9px;height:9px;background:#C8963E;transform:rotate(45deg);flex-shrink:0;}
+.mtexto{font-family:'Playfair Display',serif;font-style:italic;color:#F5E0B0;font-size:28px;line-height:1.65;text-align:center;margin-bottom:2rem;}
+.mde{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.25em;color:#8B6000;text-transform:uppercase;margin-bottom:4px;text-align:center;}
+.mnome{font-family:'Playfair Display',serif;color:#E9C46A;font-size:24px;font-weight:700;text-align:center;}
+.msetor{font-size:12px;color:rgba(245,224,176,0.4);margin-top:3px;letter-spacing:0.08em;text-align:center;}
+/* Progresso */
+.prog-wrap{position:fixed;bottom:0;left:0;right:0;height:4px;background:rgba(139,96,0,0.15);z-index:10;}
+.prog-bar{height:4px;background:linear-gradient(90deg,#8B6000,#C8963E,#E9C46A);width:100%;transition:none;}
+/* Status debug */
+#status{position:fixed;bottom:10px;right:10px;font-size:10px;color:rgba(200,150,62,0.4);z-index:20;font-family:monospace;}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="lights">
+  <svg viewBox="0 0 1920 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="b" cx="50%" cy="20%" r="60%"><stop offset="0%" stop-color="#FFFDE0"/><stop offset="40%" stop-color="#FFD700"/><stop offset="100%" stop-color="#6B3800" stop-opacity="0.3"/></radialGradient>
+      <filter id="glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <path d="M0,8 Q480,42 960,14 Q1440,0 1920,18" stroke="#3D2000" stroke-width="2" fill="none" opacity="0.8"/>
+    <g class="lg1" filter="url(#glow)">
+      <g transform="translate(120,32)"><rect x="-4" y="-14" width="8" height="5" rx="1" fill="#4A2800"/><ellipse cx="0" cy="0" rx="8" ry="10" fill="url(#b)"/></g>
+      <g transform="translate(440,18)"><rect x="-4" y="-14" width="8" height="5" rx="1" fill="#4A2800"/><ellipse cx="0" cy="0" rx="8" ry="10" fill="url(#b)"/></g>
+      <g transform="translate(760,30)"><rect x="-4" y="-14" width="8" height="5" rx="1" fill="#4A2800"/><ellipse cx="0" cy="0" rx="8" ry="10" fill="url(#b)"/></g>
+      <g transform="translate(1080,16)"><rect x="-4" y="-14" width="8" height="5" rx="1" fill="#4A2800"/><ellipse cx="0" cy="0" rx="8" ry="10" fill="url(#b)"/></g>
+      <g transform="translate(1400,26)"><rect x="-4" y="-14" width="8" height="5" rx="1" fill="#4A2800"/><ellipse cx="0" cy="0" rx="8" ry="10" fill="url(#b)"/></g>
+      <g transform="translate(1760,14)"><rect x="-4" y="-14" width="8" height="5" rx="1" fill="#4A2800"/><ellipse cx="0" cy="0" rx="8" ry="10" fill="url(#b)"/></g>
+    </g>
+    <g class="lg2" filter="url(#glow)">
+      <g transform="translate(280,22)"><rect x="-4" y="-14" width="8" height="5" rx="1" fill="#4A2800"/><ellipse cx="0" cy="0" rx="8" ry="10" fill="url(#b)"/></g>
+      <g transform="translate(600,10)"><rect x="-4" y="-14" width="8" height="5" rx="1" fill="#4A2800"/><ellipse cx="0" cy="0" rx="8" ry="10" fill="url(#b)"/></g>
+      <g transform="translate(920,36)"><rect x="-4" y="-14" width="8" height="5" rx="1" fill="#4A2800"/><ellipse cx="0" cy="0" rx="8" ry="10" fill="url(#b)"/></g>
+      <g transform="translate(1240,8)"><rect x="-4" y="-14" width="8" height="5" rx="1" fill="#4A2800"/><ellipse cx="0" cy="0" rx="8" ry="10" fill="url(#b)"/></g>
+      <g transform="translate(1600,22)"><rect x="-4" y="-14" width="8" height="5" rx="1" fill="#4A2800"/><ellipse cx="0" cy="0" rx="8" ry="10" fill="url(#b)"/></g>
+    </g>
+  </svg>
+</div>
+<div class="trees">
+  <svg viewBox="0 0 1920 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,150 L0,100 Q60,60 120,95 Q180,40 240,90 L240,150Z" fill="#0D0500" opacity="0.9"/>
+    <path d="M200,150 L200,110 Q260,60 320,105 Q380,50 440,100 L440,150Z" fill="#0D0500" opacity="0.8"/>
+    <path d="M1600,150 L1600,110 Q1660,60 1720,100 Q1780,50 1840,95 Q1880,70 1920,100 L1920,150Z" fill="#0D0500" opacity="0.9"/>
+    <line x1="440" y1="135" x2="1480" y2="135" stroke="#1A0800" stroke-width="3"/>
+    <line x1="440" y1="143" x2="1480" y2="143" stroke="#1A0800" stroke-width="2"/>
+    <line x1="520" y1="124" x2="520" y2="147" stroke="#1A0800" stroke-width="4"/>
+    <line x1="650" y1="124" x2="650" y2="147" stroke="#1A0800" stroke-width="4"/>
+    <line x1="780" y1="124" x2="780" y2="147" stroke="#1A0800" stroke-width="4"/>
+    <line x1="910" y1="124" x2="910" y2="147" stroke="#1A0800" stroke-width="4"/>
+    <line x1="1040" y1="124" x2="1040" y2="147" stroke="#1A0800" stroke-width="4"/>
+    <line x1="1170" y1="124" x2="1170" y2="147" stroke="#1A0800" stroke-width="4"/>
+    <line x1="1300" y1="124" x2="1300" y2="147" stroke="#1A0800" stroke-width="4"/>
+    <line x1="1430" y1="124" x2="1430" y2="147" stroke="#1A0800" stroke-width="4"/>
+  </svg>
+</div>
+<div class="top-bar">
+  <div class="top-brand">Correio Diamante · Entre Laços 2026</div>
+  <div class="top-count" id="topCount"></div>
+</div>
+<div id="sw">
+  <div class="wenv">
+    <svg viewBox="0 0 120 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="118" height="82" rx="3" fill="#2C1200" stroke="#C8963E" stroke-width="1.5"/>
+      <path d="M1 1 L60 48 L119 1" stroke="#E9C46A" stroke-width="1.5" fill="none"/>
+      <path d="M1 83 L42 44" stroke="#8B6000" stroke-width="1" opacity="0.5"/>
+      <path d="M119 83 L78 44" stroke="#8B6000" stroke-width="1" opacity="0.5"/>
+      <circle cx="60" cy="60" r="12" fill="#6B0000" stroke="#C8963E" stroke-width="1"/>
+      <path d="M54 60 L58 64 L67 54" stroke="#E9C46A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="wt">Correio <span>Diamante</span></div>
+  <div class="ws">Aguardando mensagens</div>
+</div>
+<div id="sm">
+  <div class="mc" id="mc">
+    <div class="mseal"><svg viewBox="0 0 28 28" fill="none"><path d="M14 2L16 10L24 10L18 15L20 23L14 18L8 23L10 15L4 10L12 10Z" fill="#E9C46A"/></svg></div>
+    <div class="mpara-l">Para</div>
+    <div class="mpara" id="mpara"></div>
+    <div class="mdiv"><div class="mdiv-l"></div><div class="mdiv-d"></div><div class="mdiv-l"></div></div>
+    <div class="mtexto" id="mtexto"></div>
+    <div class="mde">Com carinho,</div>
+    <div class="mnome" id="mnome"></div>
+    <div class="msetor" id="msetor"></div>
+  </div>
+</div>
+<div class="prog-wrap"><div class="prog-bar" id="pb"></div></div>
+<div id="status">conectando...</div>
+<script>
+// ── CONFIG ──────────────────────────────────
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwo_y3lR8YVQ8CB_ktdflaeQegssLm-nzLOU8cX3imAGBl-4_ztWv51SvSfha4gRRNC/exec';
+const INTERVALO  = 7000;
+const REFRESH    = 12000;
+let msgs = [], idx = 0, timer = null;
+
+function buscar() {
+  fetch(SCRIPT_URL + '?tipo=correio&t=' + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('status').textContent = 'ok · ' + data.length + ' mensagem(ns)';
+      if (data.length !== msgs.length) {
+        msgs = data;
+        document.getElementById('topCount').textContent = msgs.length + ' mensagem(ns)';
+        if (!timer && msgs.length > 0) iniciarSlide();
+      }
+    })
+    .catch(e => {
+      document.getElementById('status').textContent = 'erro: ' + e.message;
+    });
+}
+
+function iniciarSlide() {
+  mostrar();
+  timer = setInterval(mostrar, INTERVALO);
+}
+
+function mostrar() {
+  if (!msgs.length) {
+    document.getElementById('sw').style.display = 'flex';
+    document.getElementById('sm').style.display = 'none';
+    return;
+  }
+  if (idx >= msgs.length) idx = 0; // loop
+  const m = msgs[idx++];
+  document.getElementById('sw').style.display = 'none';
+  document.getElementById('sm').style.display = 'flex';
+  // Reanimar
+  const mc = document.getElementById('mc');
+  mc.classList.remove('show');
+  void mc.offsetWidth;
+  mc.classList.add('show');
+  // Preencher
+  document.getElementById('mpara').textContent  = m.para;
+  document.getElementById('mtexto').textContent = '\u201c' + m.mensagem + '\u201d';
+  document.getElementById('mnome').textContent  = m.nome;
+  document.getElementById('msetor').textContent = m.setor;
+  // Barra progresso
+  const pb = document.getElementById('pb');
+  pb.style.transition = 'none';
+  pb.style.width = '100%';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      pb.style.transition = `width ${INTERVALO}ms linear`;
+      pb.style.width = '0%';
+    });
+  });
+}
+
+// ── INICIAR ──────────────────────────────────
+buscar();
+setInterval(buscar, REFRESH);
+</script>
+</body>
+</html>
